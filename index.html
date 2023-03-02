@@ -746,23 +746,23 @@
             var prize_rank = await lottery_contract.methods.check_prize(web3.currentProvider.selectedAddress).call();
             console.log(prize_rank);
             if(prize_rank == 1){
-                prize_array = [100,0,0,0,0,0,0,0];
+                prize_array = [100,0,0,0,0,0,0,0,0];
             } else if (prize_rank == 2){
-                prize_array = [0,100,0,0,0,0,0,0];
+                prize_array = [0,100,0,0,0,0,0,0,0];
             } else if (prize_rank == 3){
-                prize_array = [0,0,100,0,0,0,0,0];
+                prize_array = [0,0,100,0,0,0,0,0,0];
             } else if (prize_rank == 4){
-                prize_array = [0,0,0,100,0,0,0,0];
+                prize_array = [0,0,0,100,0,0,0,0,0];
             } else if (prize_rank == 5){
-                prize_array = [0,0,0,0,100,0,0,0];
+                prize_array = [0,0,0,0,100,0,0,0,0];
             } else if (prize_rank == 6){
-                prize_array = [0,0,0,0,0,100,0,0];
+                prize_array = [0,0,0,0,0,100,0,0,0];
             } else if (prize_rank == 7){
-                prize_array = [0,0,0,0,0,0,100,0];
+                prize_array = [0,0,0,0,0,0,100,0,0];
             } else if (prize_rank == 8){
-                prize_array = [0,0,0,0,0,0,0,100];
+                prize_array = [0,0,0,0,0,0,0,100,0];
             } else {
-                prize_array = [0,0,0,0,0,0,0,100]; ///first 
+                prize_array = [0,0,0,0,0,0,0,0,100]; ///first 
             }
 
             const oMain = new CMain({
