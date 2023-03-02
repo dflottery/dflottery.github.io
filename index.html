@@ -594,7 +594,7 @@
             }
         ]
 
-            let lottery_contract = new web3.eth.Contract(LOTTERY_ABI, "0xc1eD51776e94E00348637ecb20964c46EAB84E84");
+            let lottery_contract = new web3.eth.Contract(LOTTERY_ABI, "0x8B27A961fe511e90D882F65E88296081bB63D800");
             var prize_rank = await lottery_contract.methods.check_prize(web3.currentProvider.selectedAddress).call();
             console.log("PRIZE_check");
             console.log(prize_rank);
