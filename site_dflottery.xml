@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- ホームページ -->
+  <url>
+    <loc>https://dflottery.github.io/</loc>
+    <lastmod>2024-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- 自己紹介セクション -->
+  <url>
+    <loc>https://dflottery.github.io/#about</loc>
+    <lastmod>2024-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 開発実績セクション -->
+  <url>
+    <loc>https://dflottery.github.io/#projects</loc>
+    <lastmod>2024-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- お問い合わせセクション -->
+  <url>
+    <loc>https://dflottery.github.io/#contact</loc>
+    <lastmod>2024-02-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 画像ファイル例 -->
+  <url>
+    <loc>https://dflottery.github.io/assets/images/4-1-816x816.png</loc>
+    <lastmod>2024-02-25</lastmod>
+  </url>
+  <url>
+    <loc>https://dflottery.github.io/assets/images/3-578x578.png</loc>
+    <lastmod>2024-02-25</lastmod>
+  </url>
+
+  <!-- スクリプト・スタイルシート例 -->
+  <url>
+    <loc>https://dflottery.github.io/assets/bootstrap/css/bootstrap.min.css</loc>
+    <lastmod>2024-02-25</lastmod>
+  </url>
+  <url>
+    <loc>https://dflottery.github.io/assets/theme/js/script.js</loc>
+    <lastmod>2024-02-25</lastmod>
+  </url>
+
+</urlset>
