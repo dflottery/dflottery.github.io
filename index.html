@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buddy NFT - High Dividend Investment Opportunity</title>
+    <title>Buddy NFT - 高配当型NFT投資</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* メインスタイル */
         :root {
             --primary: #6c63ff;
             --secondary: #2cdb94;
@@ -37,6 +39,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background-color: rgba(26, 26, 46, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
         }
         
         .logo {
@@ -62,24 +78,53 @@
             justify-content: center;
         }
         
-        nav ul {
+        .menu ul {
             display: flex;
             list-style: none;
         }
         
-        nav ul li {
-            margin-left: 30px;
+        .menu ul li {
+            margin-left: 25px;
         }
         
-        nav ul li a {
+        .menu ul li a {
             color: var(--light);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
         }
         
-        nav ul li a:hover {
+        .menu ul li a:hover {
             color: var(--secondary);
+        }
+        
+        .menu ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .menu ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 5px 0;
+            transition: 0.4s;
         }
         
         .hero {
@@ -88,6 +133,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
         }
         
         .hero-content {
@@ -368,34 +414,6 @@
             color: rgba(247, 247, 255, 0.7);
         }
         
-        .faq {
-            padding: 100px 0;
-        }
-        
-        .faq-item {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        
-        .faq-question {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .faq-question h3 {
-            font-size: 1.3rem;
-            color: var(--light);
-        }
-        
-        .faq-answer {
-            padding: 0 20px 20px;
-        }
-        
         footer {
             padding: 50px 0;
             background-color: rgba(0, 0, 0, 0.3);
@@ -418,6 +436,9 @@
             justify-content: center;
             margin: 0 10px;
             transition: background-color 0.3s;
+            text-decoration: none;
+            color: var(--light);
+            font-size: 1.5rem;
         }
         
         .social-icon:hover {
@@ -444,11 +465,12 @@
         .copyright {
             color: rgba(247, 247, 255, 0.5);
         }
-        
+
+        /* レスポンシブデザイン */
         @media (max-width: 991px) {
             .hero {
                 height: auto;
-                padding: 100px 0;
+                padding: 150px 0 100px;
                 flex-direction: column;
             }
             
@@ -463,6 +485,49 @@
                 width: 100%;
                 height: 400px;
                 clip-path: none;
+            }
+            
+            .menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: rgba(26, 26, 46, 0.98);
+                backdrop-filter: blur(10px);
+                padding-top: 80px;
+                transition: right 0.3s;
+                z-index: 999;
+            }
+            
+            .menu.open {
+                right: 0;
+            }
+            
+            .menu ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu ul li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
             }
             
             .features-grid {
@@ -496,19 +561,24 @@
         
         @media (max-width: 767px) {
             header {
-                flex-direction: column;
+                padding: 20px 0;
             }
             
-            nav ul {
-                margin-top: 20px;
+            .logo {
+                font-size: 1.5rem;
             }
             
-            nav ul li {
-                margin: 0 10px;
+            .logo-icon {
+                width: 30px;
+                height: 30px;
             }
             
             h1 {
                 font-size: 2.5rem;
+            }
+            
+            .menu {
+                width: 80%;
             }
             
             .features-grid {
@@ -527,6 +597,42 @@
             .timer-value {
                 font-size: 1.8rem;
             }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* スクロールトップボタン */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 999;
+        }
+        
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--light);
+            fill: none;
+            stroke-width: 2;
         }
     </style>
 </head>
@@ -536,22 +642,31 @@
             <div class="logo-icon">B</div>
             <div>Buddy<span>NFT</span></div>
         </div>
-        <nav>
+        <nav class="menu">
             <ul>
                 <li><a href="#features">特徴</a></li>
-                <li><a href="#how-it-works">仕組み</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">お問い合わせ</a></li>
+                <li><a href="payment.html">送金</a></li>
+                <li><a href="roadmap.html">ロードマップ</a></li>
+                <li><a href="dividend.html">配当</a></li>
+                <li><a href="testimonials.html">投資家の声</a></li>
+                <li><a href="security.html">安全性</a></li>
+                <li><a href="community.html">コミュニティ</a></li>
+                <li><a href="faq.html">FAQ</a></li>
             </ul>
         </nav>
+        <div class="mobile-menu-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
     </header>
     
     <section class="hero">
         <div class="container hero-content">
             <h1>高配当型NFT<span>Buddy</span><br>限定10,000枚</h1>
-            <p>次世代の<span class="highlight">高配当型NFT</span>への投資機会。抽選予約制で、非当選者には全額返金保証。<span class="highlight">1,000ドル</span>の初期投資で定期的な高配当をゲット。</p>
-            <a href="#deposit" class="btn">今すぐ抽選に参加</a>
-            <a href="#learn-more" class="btn btn-secondary">詳細を見る</a>
+            <p>次世代の<span class="highlight">高配当型NFT</span>への投資機会。KYC不要の抽選制で、非当選者には全額返金保証。<span class="highlight">1,000ドル</span>の初期投資で定期的な高配当をゲット。</p>
+            <a href="payment.html" class="btn">今すぐ送金して参加</a>
+            <a href="#features" class="btn btn-secondary">詳細を見る</a>
         </div>
         <div class="hero-image">
             <div class="nft-showcase"></div>
@@ -573,7 +688,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">🔄</div>
                     <h3>全額返金保証</h3>
-                    <p>抽選に外れた場合でも、デポジットした1,000ドルは全額返金。リスクなしで参加できる安心の抽選システム。</p>
+                    <p>抽選に外れた場合でも、送金した金額は全額返金。リスクなしで参加できる安心の抽選システム。KYC（本人確認）不要で簡単に参加可能。</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🔒</div>
@@ -600,8 +715,8 @@
                     <div class="stat-label">返金保証</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">24/7</div>
-                    <div class="stat-label">サポート</div>
+                    <div class="stat-value">5/15</div>
+                    <div class="stat-label">抽選日</div>
                 </div>
             </div>
         </div>
@@ -616,23 +731,23 @@
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>アカウント登録</h3>
-                    <p>公式サイトでアカウントを作成し、本人確認を完了</p>
+                    <h3>メールアドレス登録</h3>
+                    <p>公式サイトでメールアドレスを登録（KYC不要）</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>デポジット</h3>
-                    <p>1,000ドルをデポジットして抽選予約を確定</p>
+                    <h3>送金</h3>
+                    <p>必要枚数分の金額を指定ウォレットへ送金</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>抽選結果</h3>
-                    <p>抽選結果を待つ（当選or全額返金）</p>
+                    <h3>抽選結果確認</h3>
+                    <p>抽選日に結果を確認（当選発表：5月15日）</p>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
-                    <h3>高配当受取</h3>
-                    <p>当選者は定期的な高配当を受け取り開始</p>
+                    <h3>当選特典または返金</h3>
+                    <p>当選者は高配当受取開始、非当選者は全額返金</p>
                 </div>
             </div>
         </div>
@@ -640,8 +755,8 @@
     
     <section class="countdown">
         <div class="container">
-            <h2>抽選開始まであと</h2>
-            <p>限定10,000枚のBuddy NFTの抽選はすぐに開始されます。今すぐ参加登録しましょう。</p>
+            <h2>抽選参加締切まであと</h2>
+            <p>限定10,000枚のBuddy NFTの抽選参加締切は5月10日。抽選結果発表は5月15日に行われます。</p>
             <div class="timer">
                 <div class="timer-box">
                     <div class="timer-value">07</div>
@@ -660,64 +775,17 @@
                     <div class="timer-label">秒</div>
                 </div>
             </div>
-            <a href="#register" class="btn">今すぐ登録</a>
-        </div>
-    </section>
-    
-    <section class="faq" id="faq">
-        <div class="container">
-            <div class="section-title">
-                <h2>よくある質問</h2>
-                <p>Buddy NFTに関するよくある質問と回答</p>
-            </div>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>配当はいつ、どのように支払われますか？</h3>
-                        <span>+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>配当は毎月15日に、登録されたウォレットに直接送金されます。保有期間に応じて配当率がアップする仕組みです。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>抽選に外れた場合、返金はいつ行われますか？</h3>
-                        <span>+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>抽選結果発表後24時間以内に、デポジットした全額が元の支払い方法に返金されます。手数料は一切かかりません。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Buddy NFTの再販売は可能ですか？</h3>
-                        <span>+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>はい、公式マーケットプレイスでの再販売が可能です。ただし、配当権利の移転条件があります。詳細は利用規約をご確認ください。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>参加に必要な条件はありますか？</h3>
-                        <span>+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>20歳以上で、KYC認証を完了した方であれば、どなたでも参加可能です。また、抽選参加にはデポジット（1,000ドル）が必要です。</p>
-                    </div>
-                </div>
-            </div>
+            <a href="payment.html" class="btn">今すぐ送金する</a>
         </div>
     </section>
     
     <footer id="contact">
         <div class="container">
             <div class="social-icons">
-                <a href="#" class="social-icon">T</a>
-                <a href="#" class="social-icon">D</a>
-                <a href="#" class="social-icon">I</a>
-                <a href="#" class="social-icon">M</a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-medium"></i></a>
             </div>
             <div class="footer-links">
                 <a href="#">利用規約</a>
@@ -731,56 +799,61 @@
         </div>
     </footer>
     
+    <!-- スクロールトップボタン -->
+    <div class="scroll-top-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5"></path></svg>
+    </div>
+    
     <script>
-        // Simple countdown timer
-        const countDownDate = new Date().getTime() + (7 * 24 * 60 * 60 * 1000) + (18 * 60 * 60 * 1000) + (45 * 60 * 1000) + (22 * 1000);
-        
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = countDownDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.querySelector(".timer-box:nth-child(1) .timer-value").textContent = days.toString().padStart(2, '0');
-            document.querySelector(".timer-box:nth-child(2) .timer-value").textContent = hours.toString().padStart(2, '0');
-            document.querySelector(".timer-box:nth-child(3) .timer-value").textContent = minutes.toString().padStart(2, '0');
-            document.querySelector(".timer-box:nth-child(4) .timer-value").textContent = seconds.toString().padStart(2, '0');
-            
-            if (distance < 0) {
-                clearInterval(x);
-                document.querySelector(".countdown h2").textContent = "抽選開始！";
+        // ヘッダースクロールエフェクト
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
-        }
+        });
         
-        const x = setInterval(updateCountdown, 1000);
-        updateCountdown();
+        // スクロールトップボタン
+        const scrollTopBtn = document.querySelector('.scroll-top-btn');
         
-        // FAQ accordion
-        const faqQuestions = document.querySelectorAll('.faq-question');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
         
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const isOpen = answer.style.maxHeight;
-                
-                // Close all other answers
-                document.querySelectorAll('.faq-answer').forEach(item => {
-                    item.style.maxHeight = null;
-                });
-                
-                document.querySelectorAll('.faq-question span').forEach(span => {
-                    span.textContent = '+';
-                });
-                
-                // Toggle current answer
-                if (!isOpen) {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    question.querySelector('span').textContent = '-';
-                }
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // モバイルメニュー
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+        
+        // メニューリンククリック時に閉じる
+        const menuLinks = document.querySelectorAll('.menu a');
+        menuLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
             });
+        });
+        
+        // 画面外クリックで閉じる
+        document.addEventListener('click', function(event) {
+            if (!menu.contains(event.target) && !mobileMenuBtn.contains(event.target) && menu.classList.contains('open')) {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            }
         });
     </script>
 </body>

@@ -1,616 +1,742 @@
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ja">
 <head>
-    <!-- ========== Meta Tags ========== -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="FAQページです。お客様から寄せられるよくあるご質問とその回答を掲載しています。サービス内容や契約手続き、料金に関する疑問を解消し、安心してご利用いただけるよう、詳しくご案内いたします。">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buddy NFT - よくある質問</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* メインスタイル */
+        :root {
+            --primary: #6c63ff;
+            --secondary: #2cdb94;
+            --dark: #1a1a2e;
+            --light: #f7f7ff;
+            --accent: #ff6b6b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            padding-top: 100px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background-color: rgba(26, 26, 46, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .menu ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .menu ul li {
+            margin-left: 25px;
+        }
+        
+        .menu ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .menu ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .menu ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .menu ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: rgba(247, 247, 255, 0.8);
+        }
+        
+        .faq {
+            padding: 50px 0 100px 0;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .faq-category {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            margin: 0 10px 10px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .faq-category:hover, .faq-category.active {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .faq-question h3 {
+            font-size: 1.3rem;
+            color: var(--light);
+        }
+        
+        .faq-question span {
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .faq-answer p {
+            padding-bottom: 20px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+        
+        .faq-search {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+        
+        .faq-search input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-right: 50px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .faq-search button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .faq-search input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--secondary);
+        }
+        
+        .faq-not-found {
+            text-align: center;
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .faq-contact {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .faq-contact p {
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(108, 99, 255, 0.4);
+        }
 
-    <!-- ========== Page Title ========== -->
-    <title>FAQ 松田&パートナーズ会計事務所</title>
+        footer {
+            padding: 50px 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: var(--light);
+            font-size: 1.5rem;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            color: rgba(247, 247, 255, 0.5);
+        }
 
-    <!-- ========== Favicon Icon ========== -->
-    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
-
-    <!-- ========== Start Stylesheet ========== -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/magnific-popup.css" rel="stylesheet">
-    <link href="assets/css/swiper-bundle.min.css" rel="stylesheet">
-    <link href="assets/css/animate.min.css" rel="stylesheet">
-    <link href="assets/css/validnavs.css" rel="stylesheet">
-    <link href="assets/css/helper.css" rel="stylesheet">
-    <link href="assets/css/unit-test.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
-    <!-- ========== End Stylesheet ========== -->
-
-    <!--[if lte IE 9]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-    <![endif]-->
-
-</head>
-
-<body>
-
-
-    <!-- Start Preloader 
-    ============================================= -->
-    <div id="preloader">
-        <div class="urane-loader-inner">
-           <div class="urane-loader">
-              <span class="urane-loader-item"></span>
-              <span class="urane-loader-item"></span>
-              <span class="urane-loader-item"></span>
-              <span class="urane-loader-item"></span>
-              <span class="urane-loader-item"></span>
-              <span class="urane-loader-item"></span>
-              <span class="urane-loader-item"></span>
-              <span class="urane-loader-item"></span>
-           </div>
-        </div>
-     </div>
-    <!-- preloader end -->
-
-        <!-- Start Header Top 
-    ============================================= -->
-    <div class="top-bar-area top-bar-style-three extra-pad bg-dark text-light">
-        <div class="container">
-            <div class="row align-center">
-                <div class="col-xl-9 col-lg-7">
-                    <ul class="item-flex">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i> 070-1386-3986
-                        </li>
-                        <li>
-                            <i class="fas fa-clock"></i> 営業時間: 9:00am - 19:00pm
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-xl-3 col-lg-5 text-end">
-                    <div class="item-flex">
-                        <div class="social">
-                            中央区日本橋蛎殻町一丁目6番7
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Header Top -->
-
-    <!-- Header 
-    ============================================= -->
-    <header>
-        <!-- Start Navigation -->
-        <nav class="navbar mobile-sidenav navbar-style-three navbar-box validnavs">
-
-            <!-- Start Top Search -->
-            <div class="top-search">
-                <div class="container-xl">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                        <input type="text" class="form-control" placeholder="Search">
-                        <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-                    </div>
-                </div>
-            </div>
-            <!-- End Top Search -->
-
-
-            <div class="container nav-box d-flex justify-content-between align-items-center">            
-
-                <!-- Start Header Navigation -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" href="index.html">
-                        <img src="assets/img/logo-4.png" class="logo" alt="Logo">
-                    </a>
-                </div>
-                <!-- End Header Navigation -->
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="navbar-menu">
-
-                    <img src="assets/img/logo-4.png" alt="Logo">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                        <i class="fa fa-times"></i>
-                    </button>
-                    
-                    <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li><a href="index.html">TOP</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" >事務所概要</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index-4.html">代表挨拶</a></li>
-                                <li><a href="gallery-details.html">創業理念</a></li>
-                                <li><a href="team-details.html">スタッフ紹介</a></li>
-                                <li><a href="insurance-2.html">導入事例</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >業務ご案内</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="blog-single.html">経営者様</a></li>
-                                <li><a href="blog-single1.html">不動産オーナー様</a></li>
-                                <li><a href="blog-single2.html">決算・法人税の節税</a></li>
-                                <li><a href="blog-single3.html">個人事業主様へ</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >料金ご案内</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="pricing.html">相談料</a></li>
-                                <li><a href="pricing.html#komon">税務顧問契約</a></li>
-                                <li><a href="pricing.html#kakutei">確定決算報酬</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >ご契約</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="insurance.html">ご契約までの流れ</a></li>
-                                <li><a href="faq.html">よくあるご質問</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">お問い合わせ</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-
-                <div class="attr-right">
-                    <!-- Start Atribute Navigation -->
-                    <div class="attr-nav attr-box">
-                        <ul>
-                            <li class="side-menu">
-                            <a href="#">
-                                <span class="bar-1"></span>
-                                <span class="bar-2"></span>
-                                <span class="bar-3"></span>
-                            </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- End Atribute Navigation -->
-                </div>
-
-                <!-- Start Side Menu -->
-                <div class="side">
-                    <a href="#" class="close-side"><i class="fas fa-times"></i></a>
-                    <div class="widget">
-                        <div class="logo">
-                            <img src="assets/img/logo-light.png" alt="Logo">
-                        </div>
-                        <p>
-                            経営者や個人事業主に対して、節税対策や税務調査の対応など、幅広い税務サービスを提供しています。経験豊富な税理士チームが、企業の財務面を支え、無駄な税金を抑えるアドバイスを行い、会社にキャッシュを残すことを目指しています。また、経営相談にも対応し、顧客の成長を長期的にサポートしています。迅速かつ柔軟な対応で、安心できるパートナーとして信頼されています。                        
-                        </p>
-                    </div>
-                    <div class="widget address">
-                        <div>
-                            <ul>
-                                <li>
-                                    <div class="content">
-                                        <p>所在地</p> 
-                                        <strong>東京都中央区日本橋蛎殻町一丁目6番7</strong>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="content">
-                                        <p>Email</p> 
-                                        <strong>eito.matsuda@matsuda-partners.jp</strong>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="content">
-                                        <p>電話番号</p> 
-                                        <strong>070-1386-3986</strong>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Side Menu -->
-
-            </div>   
-            <!-- Overlay screen for menu -->
-            <div class="overlay-screen"></div>
-            <!-- End Overlay screen for menu -->
-
-        </nav>
-        <!-- End Navigation -->
-    </header>
-    <!-- End Header -->
-
-    <!-- Start Breadcrumb 
-    ============================================= -->
-    <div class="breadcrumb-area bg-cover shadow dark text-light" style="background-image: url(assets/img/banner/14.jpg);">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h1>Question & Answer</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li>FAQ</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Breadcrumb -->
-
-    <!-- Start FAQ 
-    ============================================= -->
-    <div class="faq-style-one-area bg-gray default-padding">
-        <div class="container">
-            <div class="faq-style-one-items">
-                <div class="row align-center">
-                    <div class="col-xl-7">
-                        <div class="faq-content">
-                            <h2 class="title split-text">ご遠慮なく<br> お電話ください</h2>
-                            <div class="accordion accordion-style-one" id="faqAccordion">
-                                <div class="accordion" id="faqAccordion">
-                                    <!-- Question 1 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                Q 会計事務所はどの事務所も同じではないのでしょうか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A 「単なる記帳代行・決算申告業務を依頼する所」と考えれば、業務は同じです。しかし、会計事務所ごとの対応やサービスはまさに千差万別です。当会計事務所は、単なる税務処理で終わらないノウハウを活かしてお客様のニーズにお応えして参ります。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <!-- Question 2 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Q 税理士はどのような人ですか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A お客様が相談されやすいように努めておりますが、ホームページや電話だけでは、なかなか伝わらないものです。是非、お会いしてお話をいたしましょう。ご連絡をお待ちしております。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <!-- Question 3 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThree">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                Q 既に顧問税理士がいます。相談しても大丈夫でしょうか？顧問税理士には知られませんか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A はい、もちろん大丈夫でございます。ご相談内容は勿論のこと、一切口外することはございません。安心してご相談下さい。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <!-- Question 4 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingFour">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                                Q 一般的な会社員です。不動産収入があり、自分で申告まで行っていたけど最近は限界が・･
-                                            </button>
-                                        </h2>
-                                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A お任せ下さい！私どもは経営に強い会計事務所です。まずはお問い合わせ下さい。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <!-- Question 5 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingFive">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                                Q 税務相談だけでもいいですか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A はい、喜んでお手伝いさせていただきます。事業計画や経営診断などのスポット契約も承っております。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <!-- Question 6 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingSix">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                                Q 決算・申告だけ、お願いしたいのですが、よろしいでしょうか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A もちろん、喜んでお手伝いさせていただきます。決算だけのプランがございますので、ぜひご検討下さい。ご連絡お待ちしております。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <!-- Question 7 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingSeven">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                                Q 料金はどのくらいかかるの？後から高額な請求はされませんか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A 報酬表をホームページに掲載しておりますが、細かな点はお客様のご依頼内容により変わってまいります。相談の際に、お見積りを作成させていただきます。また、別途費用が発生する可能性がある場合、お見積り時にその旨をお伝え致します。お客様のご了承をいただいてからご契約させていただきますのでご安心下さい。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <!-- Question 8 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingEight">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                                Q これから会社を設立する予定です。ご相談に乗っていただけますか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A 会社を設立して事業を開始するまでには、資金を工面する他にも意外と面倒で細かい手続きが必要です。もちろん、市販されている書籍等を参考にご自身で手続きをすることは可能です。ただし、意外と時間がかかり面倒と感じた創業者様が多いようです。当事務所にご依頼いただいた場合、お客様ご自身でないと不可能な手続き以外は全て責任を持って遂行いたしますので、ご安心してお任せ下さい。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Question 9 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingNine">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                                Q 小規模な事業でもサポートしてもらえますか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A はい、もちろんです。個人事業主や小規模事業者の方々にも対応しております。事業規模に応じた柔軟なサービスを提供し、最適なアドバイスを行いますのでご安心ください。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Question 10 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingTen">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                                                Q 記帳だけの依頼も可能でしょうか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A はい、記帳代行のみのご依頼も承っております。記帳業務を外注することで、本業に専念いただけます。ご要望に合わせて、柔軟に対応いたします。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Question 11 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingEleven">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
-                                                Q 創業支援もお願いできますか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A はい、創業支援も得意としています。事業計画作成から税務申告、融資サポートまで、幅広い支援で創業時の不安を解消します。お気軽にご相談ください。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Question 12 -->
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingTwelve">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
-                                                Q 税務調査の立会いも対応してもらえますか？
-                                            </button>
-                                        </h2>
-                                        <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#faqAccordion">
-                                            <div class="accordion-body">
-                                                <p>
-                                                    A はい、税務調査の立会いや対応も行っております。事前準備から当日の対応まで、専門家として経営者の不安を軽減するサポートを提供します。
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 faq-thumb">
-                        <img src="assets/img/thumb/6.png" alt="Image Not Found">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End FAQ -->
-
-    <!-- Start Footer 
-    ============================================= -->
-    <footer class="bg-dark footer-one text-light" style="background-image: url(assets/img/shape/27.png);">
-        <div class="container">
-            <div class="footer-style-one">
-
-                <div class="row">
-                    <!-- Singel Item -->
-                    <div class="col-lg-4 col-md-12 footer-item mt-50">
-                        <div class="f-item about">
-                            
-                            <div class="logo">
-                                <img src="assets/img/logo-light.png" alt="Image Not Found">
-                            </div>
-                            <p>
-                                税務と経営をデザインする松田&パートナーズへ
-                            </p>
-                            <div class="opening-hours">
-                                <h5>営業時間</h5>
-                                <ul class="opening-list">
-                                    <li>
-                                        Mon  -  Sat <span class="text-end">9:00 AM  -  7:00 PM</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a class="btn btn-theme btn-md animation mt-30" href="contact.html">お問い合わせ</a>
-                        </div>
-                    </div>
-                    <!-- End Singel Item -->
-
-                    <!-- Singel Item -->
-                    <div class="col-lg-2 col-md-6 mt-50 footer-item">
-                        <div class="f-item link">
-                            <h4 class="widget-title">事務所概要</h4>
-                            <ul>
-                                <li>
-                                    <a href="index-4.html">代表挨拶</a>
-                                </li>
-                                <li>
-                                    <a href="gallery-details.html">創業理念</a>
-                                </li>
-                                <li>
-                                    <a href="team-details.html">スタッフ紹介</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End Singel Item -->
-
-                    <!-- Singel Item -->
-                    <div class="col-lg-3 col-md-6 mt-50 footer-item">
-                        <div class="f-item link">
-                            <h4 class="widget-title">業務ご案内</h4>
-                            <ul>
-                                <li>
-                                    <a href="blog-single.html">経営者様へ</a>
-                                </li>
-                                <li>
-                                    <a href="blog-single1.html">不動産オーナー様へ</a>
-                                </li>
-                                <li>
-                                    <a href="blog-single2.html">決算・法人税の節税</a>
-                                </li>
-                                <li>
-                                    <a href="blog-single3.html">個人事業主様へ</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End Singel Item -->
-
-                    <!-- Singel Item -->
-                    <div class="col-lg-3 col-md-12 footer-item  mt-50">
-                        <div class="f-item contact">
-                            <h4 class="widget-title">お問い合わせ</h4>
-                            <ul>
-                                <li>
-                                    <div class="icon">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <div class="content">
-                                        東京都中央区日本橋蛎殻町一丁目6番7
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="icon">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <div class="content">
-                                        <a href="tel:07013863986">070-1386-3986</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="icon">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div class="content">
-                                        <a href="mailto:eito.matsuda@matsuda-partners.jp">eito.matsuda@matsuda-partners.jp</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End Singel Item -->
-
-
-                </div>
-            </div>
-        </div>
+        /* レスポンシブデザイン */
+        @media (max-width: 991px) {
+            .menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: rgba(26, 26, 46, 0.98);
+                backdrop-filter: blur(10px);
+                padding-top: 80px;
+                transition: right 0.3s;
+                z-index: 999;
+            }
             
-        <!-- Footer Bottom -->
-        <div class="footer-bottom text-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p>
-                            © Copyright 松田&パートナーズ. All Rights Reserved
-                        </p>
+            .menu.open {
+                right: 0;
+            }
+            
+            .menu ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu ul li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+        }
+        
+        @media (max-width: 767px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            header {
+                padding: 20px 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .menu {
+                width: 80%;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .faq-question h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">B</div>
+            <div>Buddy<span>NFT</span></div>
+        </a>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html#features">特徴</a></li>
+                <li><a href="payment.html">送金</a></li>
+                <li><a href="roadmap.html">ロードマップ</a></li>
+                <li><a href="dividend.html">配当</a></li>
+                <li><a href="testimonials.html">投資家の声</a></li>
+                <li><a href="security.html">安全性</a></li>
+                <li><a href="community.html">コミュニティ</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>
+    
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>よくある質問</h2>
+                <p>Buddy NFTに関するよくある質問と回答</p>
+            </div>
+            
+            <div class="faq-search">
+                <input type="text" id="faq-search-input" placeholder="質問を検索...">
+                <button id="faq-search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="faq-categories">
+                <div class="faq-category active" data-category="all">すべて</div>
+                <div class="faq-category" data-category="general">一般</div>
+                <div class="faq-category" data-category="payment">送金と参加</div>
+                <div class="faq-category" data-category="dividend">配当と収益</div>
+                <div class="faq-category" data-category="technical">技術的な質問</div>
+            </div>
+            
+            <div class="faq-list">
+                <div class="faq-item" data-category="dividend">
+                    <div class="faq-question">
+                        <h3>配当はいつ、どのように支払われますか？</h3>
+                        <span>+</span>
                     </div>
-                    <div class="col-lg-6 text-end">
-                        <ul>
-
-                        </ul>
+                    <div class="faq-answer">
+                        <p>配当は毎月15日に、登録されたウォレットに直接送金されます。保有期間に応じて配当率がアップする仕組みです。1年以上の保有で基本配当率に10%、2年以上で20%、3年以上で30%のボーナスが追加されます。配当は自動的に計算され、すべての取引はブロックチェーン上で確認可能です。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="payment">
+                    <div class="faq-question">
+                        <h3>抽選に外れた場合、返金はいつ行われますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>抽選結果発表後24時間以内に、送金した全額が元のウォレットアドレスに返金されます。手数料は一切かかりません。返金処理はスマートコントラクトによって自動的に行われ、完全に透明性が保たれています。返金処理の完了後、トランザクションハッシュが登録メールアドレスに送信されます。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <h3>Buddy NFTの再販売は可能ですか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>はい、公式マーケットプレイスでの再販売が可能です。ただし、配当権利の移転条件があります。長期保有によるボーナス配当率はリセットされ、新しい所有者から再計算が始まります。また、取引時には5%のロイヤリティが発生し、そのうち2%は配当プールに、3%はプロジェクト開発費に充てられます。詳細は利用規約をご確認ください。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="payment">
+                    <div class="faq-question">
+                        <h3>KYC（本人確認）は必要ですか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>いいえ、BuddyNFTの抽選参加にKYCは必要ありません。メールアドレスと送金用ウォレットのみで簡単に参加できます。これにより、プライバシーを重視する投資家も安心して参加することができます。ただし、一部の国や地域では規制により参加が制限される場合があります。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="payment">
+                    <div class="faq-question">
+                        <h3>抽選はいつ行われますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>次回の抽選は5月15日に行われます。結果はメールで通知され、公式サイトでも確認できます。抽選はブロックチェーン上で行われ、完全に透明性のある方法で実施されます。抽選後、当選者には48時間以内にNFTが発行され、非当選者には24時間以内に全額返金されます。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="technical">
+                    <div class="faq-question">
+                        <h3>どのブロックチェーンでNFTは発行されますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Buddy NFTはイーサリアムブロックチェーン上で発行されます。ERC-721規格に準拠しており、Metamask、Trust Wallet、Coinbase Walletなど主要なウォレットと互換性があります。ガス代の最適化も行われており、将来的にはマルチチェーン展開も計画しています。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <h3>配当の原資はどこから来るのですか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>配当の原資は主に以下の収入源から来ています：1）NFT販売収益の一部（60%）、2）二次流通時のロイヤリティ手数料、3）プロジェクト運営チームによる投資活動からの収益、4）提携プロジェクトからのレベニューシェア。これらの収入源を多角化することで、安定した配当を実現しています。収支の詳細は毎月公式サイトで公開されています。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="dividend">
+                    <div class="faq-question">
+                        <h3>配当にはどの暗号資産が使われますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>配当はETH（イーサリアム）で支払われます。ただし、将来的にはUSDCやUSDTなどのステーブルコインでの受け取りオプションも導入予定です。配当の暗号資産の種類は、コミュニティの投票によって変更される可能性もあります。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="technical">
+                    <div class="faq-question">
+                        <h3>コントラクトアドレスはどこで確認できますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>公式コントラクトアドレスは公式サイトのセキュリティページで確認できます。また、Etherscanでも検証済みのコントラクトとして確認できます。偽のコントラクトやフィッシング詐欺にご注意ください。公式情報は常に公式サイトまたは公式SNSアカウントでのみ発表されます。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <h3>プロジェクトチームはどのような人たちですか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Buddy NFTのチームは、ブロックチェーン技術、金融工学、デジタルアート分野における専門家で構成されています。創設者はブロックチェーン業界で10年以上の経験を持つベテランです。チームメンバーの詳細なプロフィールは公式サイトの「チーム」セクションで確認できます。また、定期的なAMAセッションもDiscordで開催しています。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="dividend">
+                    <div class="faq-question">
+                        <h3>配当の税金処理はどうなりますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>配当に関する税金の取り扱いは、お住まいの国や地域の税法に依存します。Buddy NFTは源泉徴収を行っていないため、確定申告は投資家ご自身の責任で行う必要があります。詳細については、専門の税理士にご相談することをお勧めします。なお、毎年1月には前年の配当支払い履歴を記録したレポートがメールで送信されます。</p>
                     </div>
                 </div>
             </div>
+            
+            <div class="faq-not-found">
+                <p>お探しの質問が見つかりませんでした。</p>
+            </div>
+            
+            <div class="faq-contact">
+                <p>お探しの質問がリストにない場合は、お気軽にお問い合わせください。</p>
+                <a href="#" class="btn">お問い合わせ</a>
+            </div>
         </div>
-        <!-- End Footer Bottom -->
-    </footer>
-    <!-- End Footer -->
+    </section>
     
-    <!-- jQuery Frameworks
-    ============================================= -->
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/jquery.appear.js"></script>
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/progress-bar.min.js"></script>
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/js/magnific-popup.min.js"></script>
-    <script src="assets/js/count-to.js"></script>
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/jquery.scrolla.min.js"></script>
-    <script src="assets/js/YTPlayer.min.js"></script>
-    <script src="assets/js/validnavs.js"></script>
-    <script src="assets/js/gsap.js"></script>
-    <script src="assets/js/ScrollTrigger.min.js"></script>
-    <script src="assets/js/rangeSlider.min.js"></script>
-    <script src="assets/js/jquery-ui.min.js"></script>
-    <script src="assets/js/SplitText.min.js"></script>
-    <script src="assets/js/main.js"></script>
-
+    <footer id="contact">
+        <div class="container">
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-medium"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">利用規約</a>
+                <a href="#">プライバシーポリシー</a>
+                <a href="#">お問い合わせ</a>
+                <a href="#">サポート</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Buddy NFT. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // FAQ項目のトグル機能
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // 現在アクティブなアイテムを閉じる
+                const currentActive = document.querySelector('.faq-item.active');
+                if (currentActive && currentActive !== item) {
+                    currentActive.classList.remove('active');
+                }
+                
+                // クリックされたアイテムをトグル
+                item.classList.toggle('active');
+            });
+        });
+        
+        // カテゴリーフィルター
+        const categoryButtons = document.querySelectorAll('.faq-category');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // アクティブクラスを切り替え
+                document.querySelector('.faq-category.active').classList.remove('active');
+                button.classList.add('active');
+                
+                const category = button.getAttribute('data-category');
+                
+                // FAQアイテムをフィルタリング
+                faqItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // 「見つかりません」メッセージを非表示
+                document.querySelector('.faq-not-found').style.display = 'none';
+            });
+        });
+        
+        // 検索機能
+        const searchInput = document.getElementById('faq-search-input');
+        const searchButton = document.getElementById('faq-search-btn');
+        const notFoundMessage = document.querySelector('.faq-not-found');
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm.trim() === '') {
+                // 検索語が空の場合、すべてのFAQを表示
+                faqItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                notFoundMessage.style.display = 'none';
+                return;
+            }
+            
+            let found = false;
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    found = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // 結果が見つからない場合のメッセージを表示/非表示
+            notFoundMessage.style.display = found ? 'none' : 'block';
+        }
+        
+        searchButton.addEventListener('click', performSearch);
+        
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // ヘッダースクロールエフェクト
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // モバイルメニュー
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+        
+        // メニューリンククリック時に閉じる
+        const menuLinks = document.querySelectorAll('.menu a');
+        menuLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            });
+        });
+        
+        // 画面外クリックで閉じる
+        document.addEventListener('click', function(event) {
+            if (!menu.contains(event.target) && !mobileMenuBtn.contains(event.target) && menu.classList.contains('open')) {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            }
+        });
+    </script>
 </body>
 </html>
